@@ -4,7 +4,21 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Vector;
 
+/**
+ * Vectors class provides static methods for manipulation with numeric vectors, such as:
+ * <li>multiplying a vector by a scalar</li>
+ * <li>addition of two vectors</li>
+ * <li>finding the scalar product of two vectors</li>
+ * <li>writing and reading vectors to/from byte and character streams</li>
+ */
 public class Vectors {
+    /**
+     * Calculates multiplication of vector and scalar.
+     * @param vector
+     * @param n scalar number
+     * @param <T> must extend Number
+     * @return result vector
+     */
     public static <T extends Number> Vector<Double> multByScalar(Vector<T> vector, double n) {
         Vector<Double> result = new Vector<>(vector.size());
         for (T t : vector) {
@@ -13,6 +27,13 @@ public class Vectors {
         return result;
     }
 
+    /**
+     * Calculates sum of two vectors.
+     * @param v1 first vector
+     * @param v2 second vector
+     * @param <T> must extend Number
+     * @return result vector
+     */
     public static <T extends Number> Vector<Double> sum(Vector<T> v1, Vector<T> v2) {
         Vector<Double> result = null;
         if (v1.size() == v2.size()) {
@@ -25,6 +46,13 @@ public class Vectors {
         return result;
     }
 
+    /**
+     * Calculates multiplication of two vectors.
+     * @param v1 first vector
+     * @param v2 second vector
+     * @param <T> must extend Number
+     * @return result vector
+     */
     public static <T extends Number> Vector<Double> multScalar(Vector<T> v1, Vector<T> v2) {
         Vector<Double> result = null;
         if (v1.size() == v2.size()) {
@@ -37,6 +65,13 @@ public class Vectors {
         return result;
     }
 
+    /**
+     * Writes vector to OutputStream, first written number is vector's size
+     * and then all it's elements.
+     * @param vector
+     * @param out
+     * @param <T> must extend Number
+     */
     static <T extends Number> void outputVector(Vector<T> vector, OutputStream out) {
         try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(out)) {
             objectOutputStream.writeInt(vector.size());
@@ -48,6 +83,12 @@ public class Vectors {
         }
     }
 
+    /**
+     * Reads vector from InputStream, it's considered that
+     * first read number is vector's size and then all it's elements.
+     * @param in
+     * @return read vector
+     */
     static Vector<Double> inputVector(InputStream in) {
         Vector<Double> result = new Vector<>();
         try(ObjectInputStream objectInputStream = new ObjectInputStream(in)) {
@@ -61,6 +102,13 @@ public class Vectors {
         return result;
     }
 
+    /**
+     * Writes vector to Writer, first written number is vector's size
+     * and then all it's elements, separated by spaces.
+     * @param vector
+     * @param out
+     * @param <T> must extend Number
+     */
     static <T extends Number> void writeVector(Vector<T> vector, Writer out) {
         try {
             StringBuilder result = new StringBuilder();
@@ -74,6 +122,13 @@ public class Vectors {
         }
     }
 
+    /**
+     * Reads vector from Reader, it's considered that
+     * first read number is vector's size and then all it's elements,
+     * separated by spaces.
+     * @param in
+     * @return read vector
+     */
     static Vector<Double> readVector(Reader in) {
         Vector<Double> result = new Vector<>();
         try {
@@ -95,6 +150,12 @@ public class Vectors {
         return result;
     }
 
+    /**
+     * Creates string with all elements of vector, separated by spaces.
+     * @param vector
+     * @param <T> must extend Number
+     * @return
+     */
     static <T extends Number> String print(Vector<T> vector) {
         StringBuilder result = new StringBuilder(vector.size());
         for (T t : vector) {
