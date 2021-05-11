@@ -48,19 +48,20 @@ public class Vectors {
 
     /**
      * Calculates multiplication of two vectors.
+     * @param <T> must extend Number
      * @param v1 first vector
      * @param v2 second vector
-     * @param <T> must extend Number
      * @return result vector
      */
-    public static <T extends Number> Vector<Double> multScalar(Vector<T> v1, Vector<T> v2) {
-        Vector<Double> result = null;
+    public static <T extends Number> double multScalar(Vector<T> v1, Vector<T> v2) {
+        double result = 0;
         if (v1.size() == v2.size()) {
-            result = new Vector<>(v1.size());
             for (int i = 0; i < v1.size(); ++i) {
-                result.add(v1.elementAt(i).doubleValue()
-                        * v2.elementAt(i).doubleValue());
+                result += v1.elementAt(i).doubleValue()
+                        * v2.elementAt(i).doubleValue();
             }
+        } else {
+            throw new ArithmeticException("Vectors must have the same dimension!");
         }
         return result;
     }
@@ -180,12 +181,12 @@ public class Vectors {
         System.out.println("vector3 = vector1 + vector2 : " + print(vector3));
 
         Writer w = new FileWriter("file");
-        writeVector(multScalar(vector2, vector3), w);
+        writeVector(multByScalar(vector1, multScalar(vector2, vector3)), w);
         w.close();
 
         Reader r = new FileReader("file");
         vector2 = readVector(r);
         r.close();
-        System.out.println("vector2 = (vector2, vector3) : " + print(vector2));
+        System.out.println("vector2 = vector1 * (vector2, vector3) : " + print(vector2));
     }
 }
